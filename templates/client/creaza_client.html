@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Creaza client{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 shadow-lg p-3 mb-5 bg-body rounded">
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Introduce un client nou</h3>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer text-center">
+                            <button class="btn btn-success" type="submit">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-md-8"><br><br>
+                <table class="table shadow-lg p-3 mb-5 bg-body rounded">
+                    <thead>
+                    <tr>
+                        <th>Nume si Prenume</th>
+                        <th>Numar de telefon</th>
+                        <th>email</th>
+                        <th>Carnet auto</th>
+                        <th>Valabilitate permis</th>
+                        <th>Tara de rezidenta</th>
+                        <th>Data de inceput</th>
+                        <th>Data de final</th>
+                        <th>Autoutilitara</th>
+                        <th>Actiuni</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for client in all_clients %}
+                        <tr>
+                            <td>{{ client.first_name }} {{ client.last_name }}</td>
+                            <td>{{ client.phone_number }} </td>
+                            <td>{{ client.email }} </td>
+                            <td>{{ client.driver_license }} </td>
+                            <td>{{ client.drivers_validity_license }} </td>
+                            <td>{{ client.country_of_residence }} </td>
+                            <td>{{ client.start_date|date:"d-m-Y" }} </td>
+                            <td>{{ client.end_date|date:"d-m-Y" }} </td>
+                            <td>{{ client.car }} </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actiuni
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'update-client' client.id %}">Update</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'delete-client' client.id %}">Delete</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'detalii-client' client.id %}">Vizualizeaza
+                                            detalii client</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

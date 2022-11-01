@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Client - {{ client.first_name }} {{ client.last_name }} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card text-center shadow-lg p-3 mb-5 bg-body rounded">
+                    <div class="card-header">
+                        Detalii despre clientul {{ client }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ client }}</h5>
+                        <p class="card-text">Numar de telefon: {{ client.phone_number }}</p>
+                        <p class="card-text">Email: {{ client.email }}</p>
+                        <p class="card-text">Permis auto: {{ client.driver_license }}</p>
+                        <p class="card-text">Valabilitate permis auto: {{ client.drivers_validity_license }}</p>
+                        <p class="card-text">Tara de rezidenta: {{ client.country_of_residence }}</p>
+                        <a href="{% url 'lista-de-clienti' %}" class="btn btn-primary">Go back</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Creat la data: {{ client.created_at|date:"d-m-Y H:i"}}/ Updatat la data: {{ client.update_at|date:"d-m-Y H:i" }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

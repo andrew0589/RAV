@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista de autoutilitare {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            {% for auto in all_autoutilitare %}
+                <div class="col-sm-6">
+                    <br>
+                    <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+                        <div class="card-header text-center fs-4 fw-semibold">{{ auto.model }}</div>
+                        <div class="card-body">
+                            <p class="card-text text-center">Categorie: {{ auto.categorie }}</p>
+                            <p class="card-text text-center">An fabricatie: {{ auto.an_fabricatie }}</p>
+                            <p class="card-text text-center">Caroserie: {{ auto.caroserie }}</p>
+                            <p class="card-text text-center">Combustibil: {{ auto.combustibil }}</p>
+                            <p class="card-text text-center">Putere: {{ auto.putere }}</p>
+                            <p class="card-text text-center">Capacitate cilindrica: {{ auto.capacitate_cilindrica }}</p>
+                            <p class="card-text text-center">Norma poluare: {{ auto.norma_poluare }}</p>
+                            <p class="card-text text-center">Greutate maxima: {{ auto.greutate_maxima }}</p>
+                            <p class="card-text text-center">Cutie de viteza: {{ auto.cutie_de_viteza }}</p>
+                            <p class="card-text text-center">Numar de locuri: {{ auto.numar_de_locuri }}</p>
+                            <p class="card-text text-center">
+                                Aer conditionat: {% if auto.aer_conditionat is True %} Yes {% else %} No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Alarma: {% if auto.alarma is True %} Yes {% else %} No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Geamuri electrice: {% if auto.geamuri_electrice is True %} Yes {% else %} No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Inchidere centralizata: {% if auto.inchidere_centralizata is True %} Yes {% else %}
+                                No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Servodirectie: {% if auto.servodirectie is True %} Yes {% else %} No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Navigatie: {% if auto.navigatie is True %} Yes {% else %} No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Senzori parcare: {% if auto.senzori_parcare is True %} Yes {% else %} No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Tractiune integrala: {% if auto.tractiune_integrala is True %} Yes {% else %}
+                                No {% endif %}
+                            </p>
+                            <p class="card-text text-center">
+                                Camera marsalier: {% if auto.camera_marsalier is True %} Yes {% else %} No {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'update-autoutilitare' auto.id %}">Update</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'stergere-autoutilitara' auto.id %}">Delete</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

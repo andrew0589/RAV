@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg bg-success bg-gradient">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Aici imagine</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'acasa' %}">Acasa</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'despre-noi' %}">Despre noi</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Autoutilitare
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            {% if perms.autoutilitare.add_autoutilitare %}
+                                <li><a class="dropdown-item" href="{% url 'creaza-auto' %}">Adauga autoutilitara/autovehicul</a>
+                                </li>
+                            {% endif %}
+                            <li><a class="dropdown-item" href="{% url 'lista-de-autoutilitare' %}">Vizualizeaza lista de
+                                autoutilitare</a></li>
+                            <li><a class="dropdown-item" href="#">Vizualizeaza lista de autovehicule</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'termeni' %}">Termeni si conditii</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Intrebari frecvente</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Contact</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    {% if perms.client.add_client or perms.client.view_list_of_clients %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Clienti
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if perms.client.add_client %}
+                                    <li><a class="dropdown-item" href="{% url 'creaza-client' %}">Adauga client</a></li>
+                                {% endif %}
+                                {% if perms.client.view_list_of_clients %}
+                                    <li><a class="dropdown-item" href="{% url 'lista-de-clienti' %}">Vizualizeaza lista de
+                                    clienti</a></li>
+                                {% endif %}
+                            </ul>
+                    {% endif %}
+                        </li>
+                {% endif %}
+            </ul>
+            {% if request.user.is_authenticated %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        My profile, {{ request.user.username }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'password_change' %}">Schimba parola</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-outline-success me-2">Login</a>
+                <a href="{% url 'sign-up ' %}" class="btn btn-outline-success">Sign up</a>
+            {% endif %}
+
+            {#      <form class="d-flex" role="search">#}
+            {#        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
+            {#        <button class="btn btn-outline-success" type="submit">Search</button>#}
+            {#      </form>#}
+        </div>
+    </div>
+</nav>
